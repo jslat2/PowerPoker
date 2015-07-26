@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Player Notes"
+        android:id="@+id/textView"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:background="#03a9f4"
+        android:paddingLeft="20dp" />
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/lin1"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/menu" >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:text="Player Notes"
+            android:id="@+id/menuPlNotes"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button6"
+            android:layout_toEndOf="@+id/button6"
+            android:focusableInTouchMode="false"
+            android:onClick="openPlayerNotes"
+            android:textSize="12dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:text="Bank"
+            android:id="@+id/button4"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/button5"
+            android:layout_toStartOf="@+id/button5"
+            android:nestedScrollingEnabled="false"
+            android:onClick="openBankroll"
+            android:textSize="12dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:text="Session Log"
+            android:id="@+id/button5"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="12dp"
+            android:onClick="openSessionLog" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:text="Hand Log"
+            android:id="@+id/button6"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button5"
+            android:layout_toEndOf="@+id/button5"
+            android:textSize="12dp"
+            android:onClick="openHandLog" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:text="Home"
+            android:id="@+id/button7"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/button4"
+            android:layout_toStartOf="@+id/button4"
+            android:onClick="openHome"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Save"
+        android:id="@+id/button3"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/dark_button"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:onClick="saveNote" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin1"
+        android:layout_above="@+id/button3"
+        android:background="@drawable/light_border"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_marginLeft="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/first"
+            android:hint="First"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPersonName"
+    android:ems="10"
+    android:id="@+id/last"
+    android:hint="Last"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:ems="10"
+    android:id="@+id/email"
+    android:hint="Email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="phone"
+    android:ems="10"
+    android:id="@+id/phone"
+    android:hint="Phone"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp" />
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/description"
+    android:hint="Description"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/location"
+    android:hint="Location"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:inputType="textMultiLine"
+    android:ems="10"
+    android:id="@+id/notes"
+    android:hint="Notes"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp" />
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
+</RelativeLayout>
+<!-- From: file:/C:/Users/Gaming/AndroidStudioProjects/PowerPoker/app/src/main/res/layout/note.xml -->

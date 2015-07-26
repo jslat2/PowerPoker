@@ -20,12 +20,17 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity {
 
     public static int userNum;
     public static Database db;
     public static int currentNote = -1;
+    public static int currentPlayer = -1;
+    public static HandEditor hero = new HandEditor();
+    public static HandEditor opponentOne = new HandEditor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,21 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void saveCards(View v){
+        Calculator c = new Calculator();
+        switchFrag(c);
+    }
+
+
+
+    public void openHeroCards(View v){
+        switchFrag(hero);
+    }
+
+    public void openOppOneCards(View v){
+        switchFrag(opponentOne);
+    }
+
     public void openPlayerNotes(View v){
         PlayerNotes p = new PlayerNotes();
         switchFrag(p);
@@ -88,6 +108,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openCalculator(View v){
+        hero.selectedCards = new ArrayList<String>();
+        hero = new HandEditor();
+        opponentOne = new HandEditor();
+
+
         Calculator c = new Calculator();
         switchFrag(c);
     }

@@ -101,98 +101,99 @@
         android:textColor="#ffffff"
         android:fontFamily="Roboto"
         android:onClick="saveNote" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_above="@+id/button3"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lin1"
-        android:layout_alignRight="@+id/button3"
-        android:layout_alignEnd="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" >
+        android:layout_above="@+id/button3"
+        android:background="@drawable/light_border"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_marginLeft="20dp" />
+
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/light_border">
-        <RatingBar
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ratingBar"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/first"
+            android:hint="First"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPersonName"
+    android:ems="10"
+    android:id="@+id/last"
+    android:hint="Last"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:ems="10"
+    android:id="@+id/email"
+    android:hint="Email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="phone"
+    android:ems="10"
+    android:id="@+id/phone"
+    android:hint="Phone"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/first"
-                android:hint="First"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp" />
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/description"
+    android:hint="Description"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
 
-            <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/last"
-        android:hint="Last"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/location"
+    android:hint="Location"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp" />
 
-            <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/email"
-        android:hint="Email"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
-
-            <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/phone"
-        android:hint="Phone"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/description"
-        android:hint="Description"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/location"
-        android:hint="Location"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/notes"
-        android:hint="Notes"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp" />
-        </LinearLayout>
-    </ScrollView>
-
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:inputType="textMultiLine"
+    android:ems="10"
+    android:id="@+id/notes"
+    android:hint="Notes"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp" />
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
 </RelativeLayout>

@@ -33,7 +33,7 @@ public class PlayerNotes extends Fragment {
         if(cr.moveToFirst()) {
             cr.moveToFirst();
             while (!cr.isAfterLast()) {
-                notes.add(cr.getString(2) + ", " + cr.getString(3) + "          " + cr.getString(6) + "          " + cr.getInt(9));
+                notes.add(cr.getString(2) + ", " + cr.getString(3) + "          " + cr.getString(6) + "          " + cr.getFloat(9));
                 cr.moveToNext();
             }
         }
