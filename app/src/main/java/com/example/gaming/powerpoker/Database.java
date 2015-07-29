@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Gaming on 7/23/2015.
  */
@@ -23,11 +25,26 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE account(userNum INTEGER,userName TEXT, userPass TEXT,userEmail TEXT);");
         db.execSQL("CREATE TABLE playerNotes(userNum INTEGER, noteNum INTEGER, opponentFirst TEXT, opponentLast TEXT, opponentEmail TEXT, opponentPhone TEXT, opponentDescription TEXT, location TEXT, note TEXT, rating FLOAT);");
+        db.execSQL("CREATE TABLE bankroll(userNum INTEGER,bankName TEXT, transNum INTEGER,transAmt REAL, transDate Text, transNote TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //to do
+    }
+
+    public Cursor getBankrollNames(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"userNum","bankName", "transNum"};
+        Cursor cr = sq.query("bankroll", cols, null, null, null, null, " bankName ASC");
+        return cr;
+    }
+
+    public Cursor getBankrollTable(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"userNum","bankName", "transNum", "transAmt", "transDate", "transNote"};
+        Cursor cr = sq.query("bankroll", cols, null, null, null, null, " bankName ASC");
+        return cr;
     }
 
     public Cursor getAccountTable(Database db){
@@ -49,6 +66,68 @@ public class Database extends SQLiteOpenHelper {
         long k = sq.insert("account", null, cv);
     }
 
+    public void addBankroll(Database db, String bankrollName, String bankrollDate, String initialDeposit){
+        SQLiteDatabase sq = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("userNum", MainActivity.userNum);
+        cv.put("bankName", bankrollName);
+        cv.put("transNum", getNextAvailableTransNum(db));
+        cv.put("transAmt", initialDeposit);
+        cv.put("transDate", bankrollDate);
+        cv.put("transNote", "");
+
+        long k = sq.insert("bankroll", null, cv);
+    }
+
+    //returns a unique identifier for the transaction
+    public int getNextAvailableTransNum(Database db){
+        int x = 0;
+        Cursor cr = getBankrollNames(db);
+        if (!cr.moveToFirst()){
+            return 0;
+        }
+
+        cr.moveToFirst();
+        while(!cr.moveToLast()){
+            if(cr.getInt(2) > x){
+                x = cr.getInt(2);
+            }
+            cr.moveToNext();
+        }
+        x++;
+        return x;
+    }
+
+    public int getBankrollTotal(Database db, int position){
+        int x = 0;
+        int bankTotal = 0;
+        ArrayList<String> names = new ArrayList<>();
+        names.add("");
+        Cursor cr = getBankrollTable(db);
+        if(cr.moveToFirst()) {
+            while (!cr.isAfterLast()) {
+                if (cr.getInt(0) == MainActivity.userNum && !names.contains(cr.getString(1))) {
+                    names.add(cr.getString(1));
+                }
+                if (names.size() == position + 1) {
+                    break;
+                }
+                cr.moveToNext();
+            }
+
+            while (!cr.isAfterLast()) {
+                if (cr.getString(1).equals(names.get(names.size() - 1)) && cr.getInt(0) == MainActivity.userNum) {
+                    bankTotal += cr.getInt(2);
+                    cr.moveToNext();
+                } else {
+                    break;
+                }
+            }
+        }
+        return bankTotal;
+    }
+
     public void addNote(Database db, String first, String last, String email, String phone, String description, String location, String note, float rating){
         SQLiteDatabase sq = db.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -67,9 +146,11 @@ public class Database extends SQLiteOpenHelper {
         long k = sq.insert("playerNotes", null, cv);
     }
 
-    public void changeNote(Database db, int num, String first, String last, String email, String phone, String description, String location, String note, float rating){
+    public void changeNote(Database db, int position, String first, String last, String email, String phone, String description, String location, String note, float rating){
         SQLiteDatabase sq = db.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
+        int num = getNoteNum(db, position);
 
         cv.put("userNum", MainActivity.userNum);
         cv.put("noteNum", num);
@@ -81,12 +162,18 @@ public class Database extends SQLiteOpenHelper {
         cv.put("location", location);
         cv.put("note", note);
         cv.put("rating", rating);
-        System.out.println("CHANGING NOTE NUMBER " + num + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         sq.execSQL("DELETE FROM playerNotes WHERE userNum = " + MainActivity.userNum + " AND noteNum = " + num);
         long k = sq.insert("playerNotes", null, cv);
     }
 
-
+    public int getNoteNum(Database db, int position){
+        Cursor cr = getPlayerNotesTable(db);
+        if(cr.moveToFirst()) {
+            cr.moveToPosition(position);
+            return cr.getInt(1);
+        }
+        return -1;
+    }
 
     //scan account table for unique userNum
     public int getNextAvailableUserNum(Database db){
@@ -105,14 +192,22 @@ public class Database extends SQLiteOpenHelper {
 
 
     public int getNextAvailableNoteNum(Database db){
+        int x  = 0;
+
         Cursor cr = getPlayerNotesTable(db);
         if(!cr.moveToFirst()){
             return 0;
         }
 
-        System.out.println("ADDING NOTE NUMBER " + cr.getCount() + "!!!!!!!!!!!!!!!!!!!!!!!");
-        return cr.getCount();
-
+        cr.moveToFirst();
+        while (!cr.isAfterLast()){
+            if(cr.getInt(1) > x){
+                x = cr.getInt(1);
+            }
+            cr.moveToNext();
+        }
+        x++;
+        return x;
     }
 
 

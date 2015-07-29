@@ -89,28 +89,78 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Create New Bankroll"
+        android:text="Save"
         android:id="@+id/button3"
         android:background="@drawable/dark_button"
         android:textColor="#ffffff"
         android:fontFamily="Roboto"
-        android:onClick="openNewBankroll"
+        android:onClick="saveBankroll"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp" />
 
-    <ListView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
         android:layout_below="@+id/lin1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/button3"
         android:layout_margin="20dp"
-        android:background="@drawable/light_border" />
+        android:background="@drawable/light_border">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bankrollName"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Bankroll Name"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Date Created"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/initialDeposit"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/initialDeposit"
+            android:hint="Initial Deposit"
+            android:layout_below="@+id/bankrollName"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp" />
+
+        <DatePicker
+            android:scaleY="0.8"
+            android:scaleX="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bankrollDate"
+            android:spinnersShown="true"
+            android:nestedScrollingEnabled="true"
+            android:clickable="true"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 
-</RelativeLayout><!-- From: file:/C:/Users/Gaming/AndroidStudioProjects/PowerPoker/app/src/main/res/layout/bankroll.xml -->
+    </RelativeLayout>

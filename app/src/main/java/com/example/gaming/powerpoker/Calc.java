@@ -1,8 +1,8 @@
 package com.example.gaming.powerpoker;
 import java.util.ArrayList;
 
+public class Calc{
 
-public class Calc implements Runnable {
 
 	public static int[] space = {1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 8, 1, 9, 1, 10, 1, 11, 1, 12,
 			2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7, 2, 8, 2, 9, 2, 10, 2, 11, 2, 12,
@@ -23,7 +23,7 @@ public class Calc implements Runnable {
 
 	//used as placeholder for result of calculation as it currently stands
 	//some functions take  a while to process, so this holds the interim result
-	public static double result = 0;
+	public static double result = 1;
 
 	//Method assigns a hand value to any flushes or straight flushes given the input card ArrayList
 	//returns ArrayList containing single entry of '0' if there is no flush/straight flush
@@ -38,16 +38,16 @@ public class Calc implements Runnable {
 		ArrayList done = new ArrayList<Integer>();
 		none.add(0);
 
-		
+
 		//check to see if there is 5 of one suit
 		for(int i = 0; i<7; i++){
 			if(cards[i*2] == 1){
 				clubs++;
 				if(clubs>=5){
-					highSuit = 1; 
+					highSuit = 1;
 				}
 			}
-			
+
 			if(cards[i*2] == 2){
 				diamonds++;
 				if(diamonds>=5){
@@ -69,11 +69,11 @@ public class Calc implements Runnable {
 				}
 			}
 		}
-		
+
 		if(highSuit == 0){
 			return none;
 		}
-		
+
 		//Arrange suited cards of the flush suit in order largest to smallest
 		ArrayList holder = new ArrayList<Integer>();
 		for(int i = 0; i < 7; i++){
@@ -81,7 +81,7 @@ public class Calc implements Runnable {
 				if(holder.size() == 0){
 					holder.add((Integer)cards[i*2+1]);
 				}
-				else{ 
+				else{
 					for(int j = 0; j < holder.size(); j++){
 						if(cards[i*2+1] > (int)holder.get(j)){
 							holder.add(j, cards[i*2+1]);
@@ -91,12 +91,16 @@ public class Calc implements Runnable {
 							holder.add(holder.size(), cards[i*2+1]);
 							break;
 						}
-					}	
+					}
 				}
 			}
-		
+
 		}
-		
+
+		if(holder.get(0) == (Integer)12){
+			holder.add((Integer)(-1));
+		}
+
 		//Check for straight flushes
 		for(int i = 0; i < holder.size()-4; i++){
 			if((int)holder.get(i) == (int)holder.get(i+1)+1){
@@ -110,7 +114,7 @@ public class Calc implements Runnable {
 				}
 			}
 		}
-		
+
 		//If no straight flushes return flush value
 		if(straightFlushStart == -1){
 			done.add(5);
@@ -119,7 +123,7 @@ public class Calc implements Runnable {
 			}
 			return done;
 		}
-		
+
 		//If there is a straight flush return rank 8 and the highest card in the straight flush
 		//no need to code for the lower ranks in the straight flush as they do not contribute
 		//to the comparison value
@@ -130,17 +134,17 @@ public class Calc implements Runnable {
 		}
 		return none;
 	}
-	
+
 	public ArrayList straightRank(int[] cards){
 
 		int straightStart = -1;
-		
+
 		ArrayList holder = new ArrayList<Integer>();
 		ArrayList none = new ArrayList<Integer>();
 		ArrayList done = new ArrayList<Integer>();
 		none.add((Integer)0);
 		holder.add(cards[1]);
-		
+
 		for(int i = 1; i < 7; i++){
 			for(int j = 0; j < holder.size(); j++){
 				//don't add cards of same rank
@@ -155,9 +159,12 @@ public class Calc implements Runnable {
 					holder.add(holder.size(), cards[i*2+1]);
 					break;
 				}
-			}	
+			}
 		}
 
+		if(holder.get(0) == (Integer)12){
+			holder.add((Integer)(-1));
+		}
 		for(int i = 0; i < holder.size()-4; i++){
 			if((int)holder.get(i) == (int)holder.get(i+1)+1){
 				if((int)holder.get(i+1) == (int)holder.get(i+2)+1){
@@ -170,24 +177,24 @@ public class Calc implements Runnable {
 				}
 			}
 		}
-		
+
 		if(straightStart == -1){
 			return none;
 		}
-		
+
 		else{
 			done.add(4);
 			done.add(holder.get(straightStart));
 			}
-		
+
 		return done;
 	}
-	
+
 	public ArrayList pairRank(int[] cards){
-		
+
 		ArrayList threes = new ArrayList<Integer>();
 		ArrayList twos = new ArrayList<Integer>();
-		
+
 		ArrayList holder = new ArrayList<Integer>();
 		ArrayList done = new ArrayList<Integer>();
 		int[] ranks = new int[7];
@@ -195,13 +202,13 @@ public class Calc implements Runnable {
 		for(int i =0; i < 12; i++){
 			histogram[i] = 0;
 		}
-		
+
 		for(int i = 0; i < 7; i++){
 			ranks[i] = cards[i*2+1];
 		}
-		
+
 		holder.add(ranks[0]);
-		
+
 		//Arrange cards by rank largest to smallest
 		for(int i = 1; i < 7; i++){
 			for(int j = 0; j < holder.size(); j++){
@@ -213,9 +220,9 @@ public class Calc implements Runnable {
 					holder.add(holder.size(), ranks[i]);
 					break;
 				}
-			}	
+			}
 		}
-		
+
 		//Make a histogram of the card ranks starting with high cards
 		for(int i = 0; i < 7; i ++){
 			if((int)holder.get(i) == 12){
@@ -256,11 +263,11 @@ public class Calc implements Runnable {
 			}
 			if((int)holder.get(i) == 0){
 				histogram[12]++;
-			}		
+			}
 		}
-		
+
 		//Scan the histogram for quads and return quad rank if applicable, add in kicker
-		for(int i = 0; i < 12; i++){
+		for(int i = 0; i < 13; i++){
 			if(histogram[i] == 4){
 				done.add(7);
 				done.add(12-i);
@@ -273,16 +280,16 @@ public class Calc implements Runnable {
 				return done;
 			}
 		}
-		
+
 		//Scan for triples and add to an arraylist
-		for(int i = 0; i < 12; i++){
+		for(int i = 0; i < 13; i++){
 			if(histogram[i] == 3){
 				threes.add((Integer)(12-i));
 			}
 		}
-		
+
 		//Scan for pairs and add to an arraylist (disregarding a third pair if there is one)
-		for(int i = 0; i < 12; i++){
+		for(int i = 0; i < 13; i++){
 			if(histogram[i] == 2){
 				twos.add((Integer)(12-i));
 				if(twos.size() == 2){
@@ -290,7 +297,7 @@ public class Calc implements Runnable {
 				}
 			}
 		}
-		
+
 		//Check for full houses, including two three of a kinds or 1 three of a kind and at least one pair
 		if(threes.size() > 1 || (threes.size() > 0 && twos.size() > 0)){
 			done.add(6);
@@ -304,21 +311,21 @@ public class Calc implements Runnable {
 				}
 				return done;
 			}
-			
+
 			else if(threes.size() > 1){
 				done.add(threes.get(1));
 				return done;
 			}
-			
+
 			done.add(twos.get(0));
 			return done;
 		}
-		
+
 		//Check for three of a kind, add in kickers and return
 		else if(threes.size() > 0){
 			done.add(3);
 			done.add(threes.get(0));
-			
+
 			//add kicker
 			for(int i = 0; i < holder.size(); i++){
 				if((int)holder.get(i) != (int)threes.get(0)){
@@ -330,13 +337,13 @@ public class Calc implements Runnable {
 			}
 			return done;
 		}
-		
+
 		//Check for two pair, add in kickers and return
 		else if(twos.size() > 1){
 			done.add(2);
 			done.add(twos.get(0));
 			done.add(twos.get(1));
-			
+
 			//add kickers
 			for(int i = 0; i < holder.size(); i++){
 				if((int)holder.get(i) != (int)twos.get(0)  && ((int)holder.get(i) != (int)twos.get(1))){
@@ -345,9 +352,9 @@ public class Calc implements Runnable {
 				}
 			}
 			return done;
-			
+
 		}
-		
+
 		//Check for pairs add in kickers and return
 		else if(twos.size() == 1){
 			done.add(1);
@@ -359,28 +366,28 @@ public class Calc implements Runnable {
 						break;
 					}
 				}
-				
+
 			}
 			return done;
 		}
-		
+
 		//If none of the above apply add 0 rank and add in 5 kickers
 		done.add(0);
 		for(int i = 0; i < 5; i++){
 			done.add(holder.get(i));
 		}
-		
+
 		return done;
 	}
-		
-	
+
+
 	public ArrayList handRank(int[] cards){
 
-		if(flushRank(cards).get(0) != 0){
+		if((int)flushRank(cards).get(0) != 0){
 			return flushRank(cards);
 		}
 
-		else if(straightRank(cards).get(0) != 0){
+		else if((int)straightRank(cards).get(0) != 0){
 			return straightRank(cards);
 		}
 
@@ -408,14 +415,14 @@ public class Calc implements Runnable {
 		int[] cardsTotal = new int[14];
 		int[] oppTotal = new int[14];
 
-		for(int i = 0; i < 2; i++){
+		for(int i = 0; i < 4; i++){
 			cardsTotal[i] = cards[i];
 			oppTotal[i] = opp[i];
 		}
 		if(board != null){
-			for(int i = 2; i < board.length; i++) {
-				cardsTotal[i] = board[i];
-				oppTotal[i] = board[i];
+			for(int i = 0; i < board.length; i++) {
+				cardsTotal[i+4] = board[i];
+				oppTotal[i+4] = board[i];
 			}
 		}
 
@@ -491,7 +498,6 @@ public class Calc implements Runnable {
 								cardsTotal[13] = remainingCards[m + 1];
 								oppTotal[12] = remainingCards[m];
 								oppTotal[13] = remainingCards[m + 1];
-result = count;
 
 								count += determineWinner(handRank(cardsTotal), handRank(oppTotal));
 
@@ -535,12 +541,7 @@ result = count;
 				oppTotal[12] = remainingCards[i];
 				oppTotal[13] = remainingCards[i + 1];
 
-
-
 				count += determineWinner(handRank(cardsTotal), handRank(oppTotal));
-
-				System.out.println("myhand " + cardsTotal + " rank " + handRank(cardsTotal));
-				System.out.println("hishand " + oppTotal + " rank " + handRank(oppTotal));
 
 				System.out.println(count);
 			}
@@ -548,83 +549,7 @@ result = count;
 		}
 	}
 
-	public void check(){
-		Calculator calc = new Calculator();
-	/*
-		int[] space = {1,0,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,1,10,1,11,1,12,
-						2,0,2,1,2,2,2,3,2,4,2,5,2,6,2,7,2,8,2,9,2,10,2,11,2,12,
-						3,0,3,1,3,2,3,3,3,4,3,5,3,6,3,7,3,8,3,9,3,10,3,11,3,12,
-						4,0,4,1,4,2,4,3,4,4,4,5,4,6,4,7,4,8,4,9,4,10,4,11,4,12};
-	*/
-
-
-		int[] cards = new int[4];
-		int[] opp = new int[4];
-		int[] board = new int[6];
-
-
-		cards[0]=1;
-		cards[1]=3;
-		cards[2]=3;
-		cards[3]=2;
-
-
-		opp[0]=3;
-		opp[1]=12;
-		opp[2]=3;
-		opp[3]=0;
-		
-
-
-		board[0] = 1;
-		board[1] = 4;
-		board[2] = 1;
-		board[3] = 5;
-		board[4] = 4;
-		board[5] = 6;
-
-
-//		board[6] = 1;
-//		board[7] = 7;
-
-//		board[8] = 4;
-//		board[9] = 4;
-
-		ArrayList hero = new ArrayList();
-		hero.add(4);
-		hero.add(9);
-
-		hero.add(3);
-		hero.add(8);
-
-		hero.add(2);
-		hero.add(7);
-
-		hero.add(2);
-		hero.add(6);
-
-		hero.add(4);
-		hero.add(5);
-
-
-		hero.add(1);
-		hero.add(1);
-
-		hero.add(2);
-		hero.add(8);
-
-
-
-		System.out.println(equity(cards, opp, null));
-//		endCalc();
-	}
-
-	@Override
-	public void run() {
-		check();
-	}
-
-	public void start(){
-		this.run();
+	public void check(int[] cards, int[] opp, int[] board){
+		System.out.println(equity(cards, opp, null) + "!!!!!!!!!!!!!!!!!!!!!!");
 	}
 }

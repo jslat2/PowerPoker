@@ -44,7 +44,7 @@ public class PlayerNotes extends Fragment {
 
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                MainActivity.currentNote = i;
+                MainActivity.currentNotePosition = i;
                 Note n = new Note();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.container, n).addToBackStack(null)

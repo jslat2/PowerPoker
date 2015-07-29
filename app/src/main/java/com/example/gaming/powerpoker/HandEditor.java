@@ -430,28 +430,28 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qh") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qs") && !playerCards.contains("qh")) {
             getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
-            if (playerCards.contains("qh")) {
+            if (playerCards.contains("qs")) {
                 getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
             } else {
                 getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.orange_button, null));
             }
             getActivity().findViewById(R.id.QS).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (!playerCards.contains("qh")) {
+                    if (!playerCards.contains("qs")) {
                         if (playerCards.size() >= 2) {
                             Toast.makeText(getActivity(), "Player can only have two cards", Toast.LENGTH_LONG).show();
                         } else {
-                            playerCards.add("qh");
-                            selectedCards.add("qh");
+                            playerCards.add("qs");
+                            selectedCards.add("qs");
                             getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
                         }
                     } else {
-                        playerCards.remove("qh");
-                        selectedCards.remove("qh");
+                        playerCards.remove("qs");
+                        selectedCards.remove("qs");
                         getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.orange_button, null));
                     }
                 }
@@ -782,28 +782,28 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qh") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qd") && !playerCards.contains("qh")) {
             getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
-            if (playerCards.contains("qh")) {
+            if (playerCards.contains("qd")) {
                 getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
             } else {
                 getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
             }
             getActivity().findViewById(R.id.QD).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (!playerCards.contains("qh")) {
+                    if (!playerCards.contains("qd")) {
                         if (playerCards.size() >= 2) {
                             Toast.makeText(getActivity(), "Player can only have two cards", Toast.LENGTH_LONG).show();
                         } else {
-                            playerCards.add("qh");
-                            selectedCards.add("qh");
+                            playerCards.add("qd");
+                            selectedCards.add("qd");
                             getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
                         }
                     } else {
-                        playerCards.remove("qh");
-                        selectedCards.remove("qh");
+                        playerCards.remove("qd");
+                        selectedCards.remove("qd");
                         getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
                     }
                 }
@@ -1134,28 +1134,28 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qh") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qc") && !playerCards.contains("qh")) {
             getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
-            if (playerCards.contains("qh")) {
+            if (playerCards.contains("qc")) {
                 getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
             } else {
                 getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
             }
             getActivity().findViewById(R.id.QC).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (!playerCards.contains("qh")) {
+                    if (!playerCards.contains("qc")) {
                         if (playerCards.size() >= 2) {
                             Toast.makeText(getActivity(), "Player can only have two cards", Toast.LENGTH_LONG).show();
                         } else {
-                            playerCards.add("qh");
-                            selectedCards.add("qh");
+                            playerCards.add("qc");
+                            selectedCards.add("qc");
                             getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
                         }
                     } else {
-                        playerCards.remove("qh");
-                        selectedCards.remove("qh");
+                        playerCards.remove("qc");
+                        selectedCards.remove("qc");
                         getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
                     }
                 }

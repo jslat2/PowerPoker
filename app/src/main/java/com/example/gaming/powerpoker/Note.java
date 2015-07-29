@@ -22,10 +22,10 @@ public class Note extends Fragment {
 
 
         //add data to text fields
-        if(MainActivity.currentNote != -1){
+        if(MainActivity.currentNotePosition != -1){
             Cursor cr = MainActivity.db.getPlayerNotesTable(MainActivity.db);
             if(cr.moveToFirst()) {
-                cr.moveToPosition(MainActivity.currentNote);
+                cr.moveToPosition(MainActivity.currentNotePosition);
 
                 String first = cr.getString(2);
                 String last = cr.getString(3);

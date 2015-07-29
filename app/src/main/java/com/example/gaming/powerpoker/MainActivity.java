@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -27,10 +29,11 @@ public class MainActivity extends ActionBarActivity {
 
     public static int userNum;
     public static Database db;
-    public static int currentNote = -1;
-    public static int currentPlayer = -1;
-    public static HandEditor hero = new HandEditor();
-    public static HandEditor opponentOne = new HandEditor();
+    public static int currentNotePosition = -1;
+    public static int currentBankrollPosition = -1;
+    public static HandEditor hero;
+    public static HandEditor opponentOne;
+    public static HandEditor opponentTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,11 @@ public class MainActivity extends ActionBarActivity {
 
         Login l = new Login();
         switchFrag(l);
-
         db = new Database(this);
+
+        hero = new HandEditor();
+        opponentOne = new HandEditor();
+        opponentTwo = new HandEditor();
     }
 
 
@@ -79,6 +85,10 @@ public class MainActivity extends ActionBarActivity {
         switchFrag(opponentOne);
     }
 
+    public void openOppTwoCards(View v){
+        switchFrag(opponentTwo);
+    }
+
     public void openPlayerNotes(View v){
         PlayerNotes p = new PlayerNotes();
         switchFrag(p);
@@ -86,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void openNote(View v){
         //make sure not to edit any of the existing notes
-        currentNote = -1;
+        currentNotePosition = -1;
 
         Note n = new Note();
         switchFrag(n);
@@ -117,7 +127,22 @@ public class MainActivity extends ActionBarActivity {
         switchFrag(c);
     }
 
+    public void openNewBankroll(View v){
+        BankrollCreator b = new BankrollCreator();
+        switchFrag(b);
+    }
 
+    public void saveBankroll(View v){
+
+        String date = (Integer.toString(((DatePicker)findViewById(R.id.bankrollDate)).getMonth()) + " " +
+                Integer.toString(((DatePicker)findViewById(R.id.bankrollDate)).getDayOfMonth()) + " " +
+                Integer.toString(((DatePicker)findViewById(R.id.bankrollDate)).getYear()));
+
+        db.addBankroll(db, ((EditText)findViewById(R.id.bankrollName)).getText().toString(),
+                date, ((EditText)findViewById(R.id.initialDeposit)).getText().toString());
+        Bankroll b = new Bankroll();
+        switchFrag(b);
+    }
 
     public void saveNote(View v){
 
@@ -131,11 +156,11 @@ public class MainActivity extends ActionBarActivity {
         float rating = ((RatingBar)findViewById(R.id.ratingBar)).getRating();
 
 
-        if(currentNote == -1){
+        if(currentNotePosition == -1){
             db.addNote(db, first, last, email, phone, description, location, note, rating);
         }
         else{
-            db.changeNote(db, currentNote, first, last, email, phone, description, location, note, rating);
+            db.changeNote(db, currentNotePosition, first, last, email, phone, description, location, note, rating);
         }
 
         openPlayerNotes(v);
