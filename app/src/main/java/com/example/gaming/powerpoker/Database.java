@@ -18,19 +18,82 @@ public class Database extends SQLiteOpenHelper {
 
     public Database(Context context) {
         super(context, "PowerPoker", null, database_version);
-        Log.d("Database", "database created");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE account(userNum INTEGER,userName TEXT, userPass TEXT,userEmail TEXT);");
         db.execSQL("CREATE TABLE playerNotes(userNum INTEGER, noteNum INTEGER, opponentFirst TEXT, opponentLast TEXT, opponentEmail TEXT, opponentPhone TEXT, opponentDescription TEXT, location TEXT, note TEXT, rating FLOAT);");
-        db.execSQL("CREATE TABLE bankroll(userNum INTEGER,bankName TEXT, transNum INTEGER,transAmt REAL, transDate Text, transNote TEXT);");
+        db.execSQL("CREATE TABLE bankroll(userNum INTEGER,bankName TEXT, transNum INTEGER,transAmt REAL, transDate String, transNote TEXT);");
+        db.execSQL("CREATE TABLE sessions(userNum INTEGER, date TEXT, sessionNum INTEGER, time TEXT, bankroll TEXT, buyIn REAL, venue TEXT, format TEXT, stakes TEXT, notes TEXT, cashOut REAL);");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //to do
+    }
+
+
+    public void addSession(Database db, String date, String time, String bankroll, double buyIn, String venue, String format, String stakes, String notes, double cashOut){
+        SQLiteDatabase sq = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("userNum", MainActivity.userNum);
+        cv.put("sessionNum", getNextAvailableSessionNum(db));
+        cv.put("date", date);
+        cv.put("time", time);
+        cv.put("bankroll", bankroll);
+        cv.put("buyIn", buyIn);
+        cv.put("venue", venue);
+        cv.put("format", format);
+        cv.put("stakes", stakes);
+        cv.put("notes", notes);
+        cv.put("cashOut", cashOut);
+
+        long k = sq.insert("sessions", null, cv);
+    }
+
+    public Cursor getSessionsList(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"rowid _id", "date", "venue"};
+        Cursor cr = sq.query("sessions", cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
+    public Cursor getAmtsByFormat(Database db, String formatName){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"date", "buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + MainActivity.userNum + " AND format = " + "'" + formatName + "'", cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
+    public Cursor getAmtsByVenue(Database db, String venueName){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"date", "buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + MainActivity.userNum + " AND venue = " + "'" + venueName + "'", cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
+    public Cursor getAmtsByStakes(Database db, String stakesName){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"date", "buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + MainActivity.userNum + " AND stakes = " + "'" + stakesName + "'", cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
+    public Cursor getSessionTableDateDesc(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"userNum", "date", "sessionNum", "time", "bankroll", "buyIn", "venue", "format", "stakes", "notes", "cashOut"};
+        Cursor cr = sq.query("sessions", cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
+    public Cursor getSessionVenueAmts(Database db, int userNum){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"venue", "buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + userNum, cols, null, null, null, null, " venue DESC");
+        return cr;
     }
 
     public Cursor getBankrollNames(Database db){
@@ -40,10 +103,59 @@ public class Database extends SQLiteOpenHelper {
         return cr;
     }
 
+    public Cursor getStakesNames(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"stakes"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + MainActivity.userNum, cols, null, null, null, null, " stakes ASC");
+        return cr;
+    }
+
+    public Cursor getFormatNames(Database db, int userNum){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"format"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + userNum, cols, null, null, null, null, " format ASC");
+        return cr;
+    }
+
+    public Cursor getVenueNames(Database db, int userNum){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"venue"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + userNum, cols, null, null, null, null, " venue ASC");
+        return cr;
+    }
+
+    public Cursor getBankrollAmtsDates(Database db, String bankrollName){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"rowid _id", "transAmt", "transDate"};
+        Cursor cr = sq.query("bankroll WHERE bankName = '" + bankrollName + "' AND userNum = " + MainActivity.userNum, cols, null, null, null, null, " transDate DESC");
+        return cr;
+    }
+
+    public Cursor getSessionByBankroll(Database db, String bankrollName){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"date", "buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE bankroll = '" + bankrollName + "' AND userNum = " + MainActivity.userNum, cols, null, null, null, null, " date DESC");
+        return cr;
+    }
+
     public Cursor getBankrollTable(Database db){
         SQLiteDatabase sq = db.getReadableDatabase();
         String[] cols = {"userNum","bankName", "transNum", "transAmt", "transDate", "transNote"};
         Cursor cr = sq.query("bankroll", cols, null, null, null, null, " bankName ASC");
+        return cr;
+    }
+
+    public Cursor getBankrollTotals(Database db, int userNum){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"transAmt"};
+        Cursor cr = sq.query("bankroll WHERE userNum = " + userNum, cols, null, null, null, null, null);
+        return cr;
+    }
+
+    public Cursor getSessionTimes(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"time"};
+        Cursor cr = sq.query("sessions", cols, null, null, null, null, null);
         return cr;
     }
 
@@ -66,7 +178,55 @@ public class Database extends SQLiteOpenHelper {
         long k = sq.insert("account", null, cv);
     }
 
-    public void addBankroll(Database db, String bankrollName, String bankrollDate, String initialDeposit){
+    public void makeDeposit(Database db, double depositAmount, String date){
+        SQLiteDatabase sq = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("userNum", MainActivity.userNum);
+        cv.put("bankName", getCurrentBankrollName(db));
+        cv.put("transNum", getNextAvailableTransNum(db));
+        cv.put("transAmt", depositAmount);
+        cv.put("transDate", date);
+        cv.put("transNote", "");
+
+        long k = sq.insert("bankroll", null, cv);
+    }
+
+    public void saveSessionToBankroll(Database db, int userNum, String bankrollName, double earnings, String date){
+        SQLiteDatabase sq = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("userNum", userNum);
+        cv.put("bankName", bankrollName);
+        cv.put("transNum", getNextAvailableTransNum(db));
+        cv.put("transAmt", earnings);
+        cv.put("transDate", date);
+        cv.put("transNote", "Session Earnings");
+
+        long k = sq.insert("bankroll", null, cv);
+    }
+
+    public String getCurrentBankrollName(Database db){
+        ArrayList<String> names = new ArrayList<>();
+        names.add("");
+        Cursor cr = getBankrollTable(db);
+        if(cr.moveToFirst()) {
+            cr.moveToFirst();
+            while (!cr.isAfterLast()) {
+                if (cr.getInt(0) == MainActivity.userNum && !names.contains(cr.getString(1))) {
+                    names.add(cr.getString(1));
+                }
+                if (names.size() == MainActivity.currentBankrollPosition + 2) {
+                    break;
+                }
+                cr.moveToNext();
+            }
+
+        }
+        return cr.getString(1);
+    }
+
+    public void addBankroll(Database db, String bankrollName, String bankrollDate, double initialDeposit){
         SQLiteDatabase sq = db.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -99,18 +259,41 @@ public class Database extends SQLiteOpenHelper {
         return x;
     }
 
-    public int getBankrollTotal(Database db, int position){
+    public int getNextAvailableSessionNum(Database db){
         int x = 0;
-        int bankTotal = 0;
+        Cursor cr = getSessionNums(db);
+        if (!cr.moveToFirst()){
+            return 0;
+        }
+
+        cr.moveToFirst();
+        while(!cr.isAfterLast()){
+            if(cr.getInt(0) > x){
+                System.out.println("sessionnum found: " + cr.getInt(0) + "!!!!!!!!!!!!");
+                x = cr.getInt(0);
+            }
+            cr.moveToNext();
+        }
+        x++;
+        System.out.println("adding sessionnum: " + x);
+        cr.close();
+        return x;
+    }
+
+    public double getBankrollTotal(Database db, int position){
+
+        double bankTotal = 0;
         ArrayList<String> names = new ArrayList<>();
         names.add("");
         Cursor cr = getBankrollTable(db);
         if(cr.moveToFirst()) {
+            cr.moveToFirst();
             while (!cr.isAfterLast()) {
+
                 if (cr.getInt(0) == MainActivity.userNum && !names.contains(cr.getString(1))) {
                     names.add(cr.getString(1));
                 }
-                if (names.size() == position + 1) {
+                if (names.size() == position + 2) {
                     break;
                 }
                 cr.moveToNext();
@@ -118,7 +301,7 @@ public class Database extends SQLiteOpenHelper {
 
             while (!cr.isAfterLast()) {
                 if (cr.getString(1).equals(names.get(names.size() - 1)) && cr.getInt(0) == MainActivity.userNum) {
-                    bankTotal += cr.getInt(2);
+                    bankTotal += cr.getDouble(3);
                     cr.moveToNext();
                 } else {
                     break;
@@ -165,6 +348,59 @@ public class Database extends SQLiteOpenHelper {
         sq.execSQL("DELETE FROM playerNotes WHERE userNum = " + MainActivity.userNum + " AND noteNum = " + num);
         long k = sq.insert("playerNotes", null, cv);
     }
+
+    public void deleteCurrentSession(){
+        SQLiteDatabase sq = MainActivity.db.getWritableDatabase();
+        sq.execSQL("DELETE FROM sessions WHERE userNum = " + MainActivity.userNum + " AND sessionNum = " + getSessionNum(MainActivity.db, MainActivity.currentSessionPosition));
+        sq.close();
+    }
+
+
+    public void changeSession(Database db, int currentSessionPosition, String time, String bankroll, double buyIn, String venue, String format, String stakes, String notes, double cashOut){
+        SQLiteDatabase sq = db.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        int num = getSessionNum(db, currentSessionPosition);
+        String date = getSessionDate(db, currentSessionPosition);
+
+        cv.put("userNum", MainActivity.userNum);
+        cv.put("sessionNum", num);
+        cv.put("date", date);
+        cv.put("time", time);
+        cv.put("bankroll", bankroll);
+        cv.put("buyIn", buyIn);
+        cv.put("venue", venue);
+        cv.put("format", format);
+        cv.put("stakes", stakes);
+        cv.put("notes", notes);
+        cv.put("cashOut", cashOut);
+
+        sq.execSQL("DELETE FROM sessions WHERE userNum = " + MainActivity.userNum + " AND sessionNum = " + num);
+        long k = sq.insert("sessions", null, cv);
+        sq.close();
+    }
+
+
+    public int getSessionNum(Database db, int currentSessionPosition){
+        Cursor cr = getSessionTableDateDesc(db);
+        if(cr.moveToFirst()){
+            cr.moveToPosition(currentSessionPosition);
+            return cr.getInt(2);
+        }
+        cr.close();
+        return -1;
+    }
+
+    public String getSessionDate(Database db, int currentSessionPosition){
+        Cursor cr = getSessionTableDateDesc(db);
+        if(cr.moveToFirst()){
+            cr.moveToPosition(currentSessionPosition);
+            return cr.getString(1);
+        }
+        cr.close();
+        return "";
+    }
+
 
     public int getNoteNum(Database db, int position){
         Cursor cr = getPlayerNotesTable(db);
@@ -231,7 +467,28 @@ public class Database extends SQLiteOpenHelper {
     public Cursor getPlayerNotesTable(Database db){
         SQLiteDatabase sq = db.getReadableDatabase();
         String[] cols = {"userNum", "noteNum","opponentFirst", "opponentLast", "opponentEmail", "opponentPhone", "opponentDescription", "location", "note", "rating"};
-        Cursor cr = sq.query("playerNotes", cols, null, null, null, null, "noteNum ASC");
+        Cursor cr = sq.query("playerNotes WHERE userNum = " + MainActivity.userNum, cols, null, null, null, null, "noteNum ASC");
+        return cr;
+    }
+
+    public Cursor getPlayerNotesTableWithRowid(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"rowid _id", "userNum", "noteNum","opponentFirst", "opponentLast", "opponentEmail", "opponentPhone", "opponentDescription", "location", "note", "rating"};
+        Cursor cr = sq.query("playerNotes WHERE userNum = " + MainActivity.userNum, cols, null, null, null, null, "noteNum ASC");
+        return cr;
+    }
+
+    public Cursor getSessionNums(Database db){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"sessionNum"};
+        Cursor cr = sq.query("sessions", cols, null, null, null, null, null);
+        return cr;
+    }
+
+    public Cursor getSessionTotals(Database db, int userNum){
+        SQLiteDatabase sq = db.getReadableDatabase();
+        String[] cols = {"buyIn", "cashOut"};
+        Cursor cr = sq.query("sessions WHERE userNum = " + userNum, cols, null, null, null, null, null);
         return cr;
     }
 

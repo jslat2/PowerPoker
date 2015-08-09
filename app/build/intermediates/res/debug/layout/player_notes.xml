@@ -15,78 +15,104 @@
         android:background="#03a9f4"
         android:paddingLeft="20dp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:id="@+id/lin1"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/menu" >
+        android:background="@drawable/menu"
+        android:gravity="center_vertical|center_horizontal">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Player Notes"
-            android:id="@+id/menuPlNotes"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button6"
-            android:layout_toEndOf="@+id/button6"
+            android:layout_height="50dp"
+            android:text="Home"
+            android:id="@+id/homeButton"
+            android:textSize="12dp"
+            android:onClick="openHome"
+            android:background="@drawable/menu_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Bank"
+            android:id="@+id/bankButton"
+            android:onClick="openBankroll"
+            android:textSize="12dp"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/homeButton"
+            android:layout_toRightOf="@+id/homeButton"
+            android:layout_toEndOf="@+id/homeButton"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#ffffff"
+            android:fontFamily="Roboto" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Sessions"
+            android:id="@+id/sessionsButton"
+            android:textSize="12dp"
+            android:onClick="openSessionLog"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/bankButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Calc"
+            android:id="@+id/calculatorButton"
+            android:textSize="12dp"
+            android:onClick="openCalculator"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/sessionsButton"
+            android:layout_toLeftOf="@+id/notesButton"
+            android:layout_toStartOf="@+id/notesButton"
+            android:layout_weight="1"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Notes"
+            android:id="@+id/notesButton"
             android:focusableInTouchMode="false"
             android:onClick="openPlayerNotes"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/calculatorButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Bank"
-            android:id="@+id/button4"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button5"
-            android:layout_toStartOf="@+id/button5"
-            android:onClick="openBankroll"
-            android:textSize="12dp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Session Log"
-            android:id="@+id/button5"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:nestedScrollingEnabled="false"
-            android:onClick="openSessionLog"
-            android:textSize="12dp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Hand Log"
-            android:id="@+id/button6"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button5"
-            android:layout_toEndOf="@+id/button5"
-            android:onClick="openHandLog"
-            android:textSize="12dp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Home"
-            android:id="@+id/button7"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button4"
-            android:layout_toStartOf="@+id/button4"
-            android:onClick="openHome"
-            android:singleLine="false"
-            android:textSize="12dp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
@@ -98,7 +124,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/dark_button"
+        android:background="@drawable/light_button"
         android:textColor="#ffffff"
         android:fontFamily="Roboto"
         android:onClick="openNote" />
@@ -117,5 +143,42 @@
         android:layout_alignStart="@+id/button3"
         android:background="@drawable/light_border"
         android:padding="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@drawable/red_banner"
+        android:elevation="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical"
+        android:id="@+id/timerLayout"
+        android:onClick="openCurrentSessionLog"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Session In Progress"
+            android:id="@+id/textView14"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="2dp" />
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="95dp"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="2dp" />
+    </RelativeLayout>
+
 
 </RelativeLayout><!-- From: file:/C:/Users/Gaming/AndroidStudioProjects/PowerPoker/app/src/main/res/layout/player_notes.xml -->

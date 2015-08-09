@@ -1,11 +1,18 @@
 package com.example.gaming.powerpoker;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,8 +28,138 @@ public class HandEditor extends Fragment{
         return inflater.inflate(R.layout.hand_editor, container, false);
     }
 
+    public void onResume() {
+        super.onResume();
+
+        Button saveButton = (Button)getActivity().findViewById(R.id.button8);
+        Button homeButton = (Button)getActivity().findViewById(R.id.homeButton);
+        Button bankButton = (Button)getActivity().findViewById(R.id.bankButton);
+        Button sessionsButton = (Button)getActivity().findViewById(R.id.sessionsButton);
+        Button calculatorButton = (Button)getActivity().findViewById(R.id.calculatorButton);
+        Button notesButton = (Button)getActivity().findViewById(R.id.notesButton);
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playerCards.size() == 1) {
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                } else {
+                    Calculator c = new Calculator();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, c, null).commit();
+                }
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerCards.size() == 1){
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Home h = new Home();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, h, null).commit();
+                }
+            }
+        });
+
+        bankButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerCards.size() == 1){
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Bankroll b = new Bankroll();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, b, null).commit();
+                }
+            }
+        });
+
+        sessionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerCards.size() == 1){
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    SessionLogList s = new SessionLogList();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, s, null).commit();
+                }
+            }
+        });
+
+        calculatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerCards.size() == 1){
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Calculator c = new Calculator();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, c, null).commit();
+                }
+            }
+        });
+
+        notesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerCards.size() == 1){
+                    Toast.makeText(getActivity(), "Player Cannot Have Only One Card", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    PlayerNotes n  = new PlayerNotes();
+                    FragmentManager frag = getActivity().getSupportFragmentManager();
+                    frag.beginTransaction().replace(R.id.container, n, null).commit();
+                }
+            }
+        });
+
+
+        if (MainActivity.sessionActive) {
+            Chronometer timer = (Chronometer) getActivity().findViewById(R.id.timer);
+            RelativeLayout timerLayout = (RelativeLayout) getActivity().findViewById(R.id.timerLayout);
+
+            Animation myFadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.flash);
+            timerLayout.startAnimation(myFadeInAnimation);
+
+            timer.setBase(SystemClock.elapsedRealtime() - MainActivity.checkpoint);
+            if(!MainActivity.sessionTimerStopped) {
+                timer.start();
+            }
+            timerLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onDestroyView(){
+        super.onDestroyView();
+        Chronometer timer = (Chronometer)getActivity().findViewById(R.id.timer);
+        MainActivity.checkpoint = MainActivity.timeToMillis(timer.getText().toString());
+    }
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (MainActivity.sessionActive) {
+            Chronometer timer = (Chronometer) getActivity().findViewById(R.id.timer);
+            RelativeLayout timerLayout = (RelativeLayout) getActivity().findViewById(R.id.timerLayout);
+
+            Animation myFadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.flash);
+            timerLayout.startAnimation(myFadeInAnimation);
+
+            timer.setBase(SystemClock.elapsedRealtime() - MainActivity.checkpoint);
+            if(!MainActivity.sessionTimerStopped) {
+                timer.start();
+            }
+            timerLayout.setVisibility(View.VISIBLE);
+        }
 
         if (selectedCards.contains("ah") && !playerCards.contains("ah")) {
             getActivity().findViewById(R.id.AH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
@@ -430,7 +567,7 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qs") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qs") && !playerCards.contains("qs")) {
             getActivity().findViewById(R.id.QS).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
@@ -782,7 +919,7 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qd") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qd") && !playerCards.contains("qd")) {
             getActivity().findViewById(R.id.QD).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
@@ -1134,14 +1271,14 @@ public class HandEditor extends Fragment{
             });
         }
 
-        if (selectedCards.contains("qc") && !playerCards.contains("qh")) {
+        if (selectedCards.contains("qc") && !playerCards.contains("qc")) {
             getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
             if (playerCards.contains("qc")) {
                 getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
             } else {
-                getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
+                getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.medium_button, null));
             }
             getActivity().findViewById(R.id.QC).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
@@ -1156,7 +1293,7 @@ public class HandEditor extends Fragment{
                     } else {
                         playerCards.remove("qc");
                         selectedCards.remove("qc");
-                        getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.green_button, null));
+                        getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.medium_button, null));
                     }
                 }
             });
@@ -1486,15 +1623,15 @@ public class HandEditor extends Fragment{
         }
 
         if (selectedCards.contains("qh") && !playerCards.contains("qh")) {
-            getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
+            getActivity().findViewById(R.id.QH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.black_button, null));
         }
         else {
             if (playerCards.contains("qh")) {
-                getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
+                getActivity().findViewById(R.id.QH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
             } else {
-                getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.medium_button, null));
+                getActivity().findViewById(R.id.QH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.red_button, null));
             }
-            getActivity().findViewById(R.id.QC).setOnClickListener(new View.OnClickListener() {
+            getActivity().findViewById(R.id.QH).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     if (!playerCards.contains("qh")) {
                         if (playerCards.size() >= 2) {
@@ -1502,12 +1639,12 @@ public class HandEditor extends Fragment{
                         } else {
                             playerCards.add("qh");
                             selectedCards.add("qh");
-                            getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
+                            getActivity().findViewById(R.id.QH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.white_button, null));
                         }
                     } else {
                         playerCards.remove("qh");
                         selectedCards.remove("qh");
-                        getActivity().findViewById(R.id.QC).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.medium_button, null));
+                        getActivity().findViewById(R.id.QH).setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.red_button, null));
                     }
                 }
             });

@@ -1,6 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Session Log"
+        android:id="@+id/textView"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:background="#03a9f4"
+        android:paddingLeft="20dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/lin1"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/menu"
+        android:gravity="center_vertical|center_horizontal">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Home"
+            android:id="@+id/homeButton"
+            android:textSize="12dp"
+            android:onClick="openHome"
+            android:background="@drawable/menu_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Bank"
+            android:id="@+id/bankButton"
+            android:onClick="openBankroll"
+            android:textSize="12dp"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/homeButton"
+            android:layout_toRightOf="@+id/homeButton"
+            android:layout_toEndOf="@+id/homeButton"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#ffffff"
+            android:fontFamily="Roboto" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Sessions"
+            android:id="@+id/sessionsButton"
+            android:textSize="12dp"
+            android:onClick="openSessionLog"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/bankButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Calc"
+            android:id="@+id/calculatorButton"
+            android:textSize="12dp"
+            android:onClick="openCalculator"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/sessionsButton"
+            android:layout_toLeftOf="@+id/notesButton"
+            android:layout_toStartOf="@+id/notesButton"
+            android:layout_weight="1"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Notes"
+            android:id="@+id/notesButton"
+            android:focusableInTouchMode="false"
+            android:onClick="openPlayerNotes"
+            android:textSize="12dp"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/calculatorButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Timer"
+        android:id="@+id/startTimer"
+        android:onClick="startTimer"
+        android:background="@drawable/red_button"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
+        android:layout_alignTop="@+id/stopTimer"
+        android:layout_toLeftOf="@+id/timer"
+        android:layout_toStartOf="@+id/timer"
+        android:layout_marginRight="25dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:id="@+id/timer"
+        android:layout_alignTop="@+id/startTimer"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Timer"
+        android:id="@+id/stopTimer"
+        android:onClick="stopTimer"
+        android:background="@drawable/red_button"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:layout_below="@+id/lin1"
+        android:layout_toRightOf="@+id/timer"
+        android:layout_toEndOf="@+id/timer"
+        android:layout_marginLeft="25dp" />
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_border"
+        android:layout_above="@+id/button14"
+        android:id="@+id/scrollView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/startTimer"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/buyIn"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:layout_toRightOf="@+id/textView13"
+                android:layout_below="@+id/ab"
+                android:layout_alignStart="@+id/venue"
+                android:hint="&lt;-- Please Enter Buy In -->"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue:"
+                android:id="@+id/ab"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/venue"
+                android:minWidth="75dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView13"
+                android:background="@android:color/transparent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:hint="&lt;-- Please Enter a Venue -->"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash Out:"
+                android:id="@+id/textView13"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/cashOut"
+                android:layout_marginRight="40dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/cashOut"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/buyIn"
+                android:background="@android:color/transparent"
+                android:layout_toRightOf="@+id/textView13"
+                android:hint="&lt;-- Please Enter Amt Cashed -->"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buy In:"
+                android:id="@+id/textView9"
+                android:layout_alignTop="@+id/buyIn"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bankrollSpinner"
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/cashOut"
+                android:layout_alignStart="@+id/cashOut"
+                android:layout_toRightOf="@+id/textView13"
+                android:layout_marginLeft="-10dp"
+                android:layout_toStartOf="@+id/button4"
+                android:layout_alignRight="@+id/cashOut"
+                android:layout_alignEnd="@+id/cashOut" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bankroll:"
+                android:id="@+id/textView8"
+                android:layout_alignTop="@+id/bankrollSpinner" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/format"
+                android:layout_below="@+id/bankrollSpinner"
+                android:layout_toRightOf="@+id/textView13"
+                android:layout_alignStart="@+id/cashOut"
+                android:layout_marginLeft="-10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Format"
+                android:id="@+id/hhh"
+                android:layout_alignTop="@+id/format" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stakes"
+                android:layout_alignParentStart="false"
+                android:layout_below="@+id/format"
+                android:layout_toRightOf="@+id/textView13"
+                android:layout_alignStart="@+id/cashOut"
+                android:layout_marginLeft="-10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stakes:"
+                android:id="@+id/textView10"
+                android:layout_alignTop="@+id/stakes" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:id="@+id/notes"
+                android:layout_toRightOf="@+id/textView13"
+                android:hint="&lt;-- Please Enter Notes -->"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/stakes"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:textStyle="normal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notes"
+                android:id="@+id/textView12"
+                android:layout_alignTop="@+id/notes"
+                android:background="@android:color/transparent" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Bankroll"
+                android:id="@+id/button4"
+                android:textSize="14sp"
+                android:background="@drawable/dark_button"
+                android:textColor="#ffffff"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="false"
+                android:onClick="openBankrollCreator"
+                android:layout_below="@+id/notes" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Save Session"
+        android:id="@+id/button14"
+        android:background="@drawable/light_button"
+        android:textColor="#ffffff"
+        android:fontFamily="Roboto"
+        android:onClick="saveSession"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
+
+</RelativeLayout>

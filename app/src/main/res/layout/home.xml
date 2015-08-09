@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@drawable/red_banner"
+        android:elevation="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:gravity="center_vertical"
+        android:id="@+id/timerLayout"
+        android:onClick="openCurrentSessionLog"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Session In Progress"
+            android:id="@+id/textView14"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="2dp" />
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="95dp"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="2dp" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -15,97 +51,428 @@
         android:background="#03a9f4"
         android:paddingLeft="20dp"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:id="@+id/lin1"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/menu" >
+        android:background="@drawable/menu"
+        android:gravity="center_vertical|center_horizontal">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Player Notes"
-            android:id="@+id/menuPlNotes"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button6"
-            android:layout_toEndOf="@+id/button6"
+            android:layout_height="50dp"
+            android:text="Home"
+            android:id="@+id/homeButton"
+            android:textSize="12dp"
+            android:onClick="openHome"
+            android:background="@drawable/menu_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Bank"
+            android:id="@+id/bankButton"
+            android:onClick="openBankroll"
+            android:textSize="12dp"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/homeButton"
+            android:layout_toRightOf="@+id/homeButton"
+            android:layout_toEndOf="@+id/homeButton"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#ffffff"
+            android:fontFamily="Roboto" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Sessions"
+            android:id="@+id/sessionsButton"
+            android:textSize="12dp"
+            android:onClick="openSessionLog"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/bankButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Calc"
+            android:id="@+id/calculatorButton"
+            android:textSize="12dp"
+            android:onClick="openCalculator"
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/sessionsButton"
+            android:layout_toLeftOf="@+id/notesButton"
+            android:layout_toStartOf="@+id/notesButton"
+            android:layout_weight="1"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:text="Notes"
+            android:id="@+id/notesButton"
             android:focusableInTouchMode="false"
             android:onClick="openPlayerNotes"
-            android:textSize="12dp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Bank"
-            android:id="@+id/button4"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button5"
-            android:layout_toStartOf="@+id/button5"
-            android:onClick="openBankroll"
-            android:textSize="12dp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Session Log"
-            android:id="@+id/button5"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:textSize="12dp"
-            android:onClick="openSessionLog" />
+            android:background="@drawable/menu_button"
+            android:layout_alignTop="@+id/calculatorButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="Roboto"
+            android:textColor="#ffffff" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Hand Log"
-            android:id="@+id/button6"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button5"
-            android:layout_toEndOf="@+id/button5"
-            android:textSize="12dp"
-            android:onClick="openHandLog" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="75dp"
-            android:layout_height="60dp"
-            android:text="Home"
-            android:id="@+id/button7"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button4"
-            android:layout_toStartOf="@+id/button4"
-            android:textSize="12dp" />
-    </RelativeLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Quick Calculator"
-        android:id="@+id/button8"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:textColor="#ffffff"
-        android:background="@drawable/red_button"
-        android:fontFamily="Roboto"
-        android:onClick="openCalculator" />
-
-    <view
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        class="com.jjoe64.graphview.GraphView"
-        android:id="@+id/graph"
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/lin1"
+    android:layout_margin="20dp"
+    android:background="@drawable/light_border"
+    android:padding="10dp">
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/button8"
-        android:layout_below="@+id/lin1" />
+        android:id="@+id/scroll">
 
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:id="@+id/relativeLayout7">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Total Bank: "
+        android:id="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/totalBank"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView11"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView11"
+        android:layout_marginLeft="15dp"
+        android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeLogged"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/totalBank"
+            android:layout_alignLeft="@+id/totalBank"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Total Time Logged:"
+            android:id="@+id/textView11"
+            android:layout_below="@+id/totalBank"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignLeft="@+id/textView7" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lifeTimeEarnings"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:layout_alignRight="@+id/timeLogged"
+            android:layout_alignEnd="@+id/timeLogged"
+            android:layout_below="@+id/timeLogged"
+            android:layout_alignLeft="@+id/timeLogged"
+            android:layout_alignStart="@+id/timeLogged" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="LifeTime Earnings:"
+            android:id="@+id/textView16"
+            android:layout_alignTop="@+id/lifeTimeEarnings"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/earningsPerHour"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:layout_alignRight="@+id/lifeTimeEarnings"
+            android:layout_alignEnd="@+id/lifeTimeEarnings"
+            android:layout_below="@+id/lifeTimeEarnings"
+            android:layout_alignLeft="@+id/lifeTimeEarnings"
+            android:layout_alignStart="@+id/lifeTimeEarnings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Earnings Per Hour"
+            android:id="@+id/textView17"
+            android:layout_below="@+id/lifeTimeEarnings"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bestSingleSession"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:layout_alignLeft="@+id/earningsPerHour"
+            android:layout_alignStart="@+id/earningsPerHour"
+            android:layout_below="@+id/earningsPerHour"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Best Single Session"
+            android:id="@+id/textView18"
+            android:layout_alignTop="@+id/bestSingleSession"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bestVenue"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:layout_alignRight="@+id/bestSingleSession"
+            android:layout_alignEnd="@+id/bestSingleSession"
+            android:layout_below="@+id/bestSingleSession"
+            android:layout_alignLeft="@+id/bestSingleSession"
+            android:layout_alignStart="@+id/bestSingleSession" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Best Venue"
+            android:id="@+id/textView19"
+            android:layout_alignTop="@+id/bestVenue"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
+</ScrollView>
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/scroll"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/scrollView2">
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/relativeLayout6"
+    android:padding="10dp"
+        android:layout_below="@+id/scroll">
+
+
+        <view
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        class="com.jjoe64.graphview.GraphView"
+        android:id="@+id/graph"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+            android:layout_below="@+id/textView4" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/graphTwoSpinner"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/graph"
+            android:layout_alignParentBottom="false"
+            android:layout_toEndOf="@+id/textView22"
+            android:layout_toRightOf="@+id/textView22" />
+
+        <view
+            class="com.jjoe64.graphview.GraphView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/graphTwo"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/graphTwoSpinner" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Total Earnings"
+            android:id="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/graph"
+            android:layout_alignStart="@+id/graph" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Earnings By Bankroll"
+            android:id="@+id/textView22"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignTop="@+id/graphTwoSpinner" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/graphThreeSpinner"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_toEndOf="@+id/textView22"
+            android:layout_alignLeft="@+id/graphTwoSpinner"
+            android:layout_below="@+id/graphTwo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Earnings By Format"
+            android:id="@+id/textView23"
+            android:layout_alignTop="@+id/graphThreeSpinner"
+            android:layout_alignLeft="@+id/textView4" />
+
+        <view
+            class="com.jjoe64.graphview.GraphView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/graphThree"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/graphThreeSpinner" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/graphFourSpinner"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignLeft="@+id/graphTwoSpinner"
+            android:layout_below="@+id/graphThree" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Earnings By Venue"
+            android:id="@+id/textView24"
+            android:layout_alignTop="@+id/graphFourSpinner"
+            android:layout_alignLeft="@+id/textView4" />
+
+        <view
+            class="com.jjoe64.graphview.GraphView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/graphFour"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/graphFourSpinner" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/graphFiveSpinner"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="false"
+            android:layout_alignLeft="@+id/graphThreeSpinner"
+            android:layout_below="@+id/graphFour" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Earnings By Stakes"
+            android:id="@+id/textView25"
+            android:layout_alignTop="@+id/graphFiveSpinner"
+            android:layout_alignLeft="@+id/textView4" />
+
+        <view
+            class="com.jjoe64.graphview.GraphView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/graphFive"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/graphFiveSpinner" />
+    </RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>
 </RelativeLayout>
