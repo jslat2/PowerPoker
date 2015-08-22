@@ -124,19 +124,58 @@
         android:textColor="#ffffff"
         android:background="@drawable/light_button"
         android:fontFamily="Roboto" />
-<RelativeLayout
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/calcEquity"
+        android:id="@+id/relativeLayout8"
+        android:layout_alignRight="@+id/relativeLayout9"
+        android:layout_alignEnd="@+id/relativeLayout9"
+        android:layout_alignLeft="@+id/relativeLayout9"
+        android:layout_alignStart="@+id/relativeLayout9"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/light_border"
+        android:gravity="center_vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Board"
+            android:id="@+id/button5"
+            android:onClick="openBoardCards"
+            android:background="@drawable/light_button"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/boardCards"
+            android:hint="&lt;--- Edit Board"
+            android:textColor="#000000"
+            android:editable="true"
+            android:enabled="true"
+            android:layout_alignBottom="@+id/button5"
+            android:layout_toRightOf="@+id/button5"
+            android:layout_toEndOf="@+id/button5" />
+    </RelativeLayout>
+
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/light_border"
     android:layout_below="@+id/lin1"
-    android:layout_above="@+id/calcEquity"
-    android:layout_marginLeft="20dp"
+        android:layout_marginLeft="20dp"
     android:layout_marginTop="20dp"
-    android:layout_marginRight="20dp">
+    android:layout_marginRight="20dp"
+        android:layout_above="@+id/relativeLayout8"
+        android:id="@+id/relativeLayout9">
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/calcEquity"
         android:paddingBottom="-50dp"
         android:fillViewport="false"
         android:layout_alignParentRight="true"

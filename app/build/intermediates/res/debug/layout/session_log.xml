@@ -249,7 +249,6 @@
                 android:layout_alignStart="@+id/cashOut"
                 android:layout_toRightOf="@+id/textView13"
                 android:layout_marginLeft="-10dp"
-                android:layout_toStartOf="@+id/button4"
                 android:layout_alignRight="@+id/cashOut"
                 android:layout_alignEnd="@+id/cashOut" />
 
@@ -315,21 +314,6 @@
                 android:id="@+id/textView12"
                 android:layout_alignTop="@+id/notes"
                 android:background="@android:color/transparent" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create Bankroll"
-                android:id="@+id/button4"
-                android:textSize="14sp"
-                android:background="@drawable/dark_button"
-                android:textColor="#ffffff"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="false"
-                android:onClick="openBankrollCreator"
-                android:layout_below="@+id/notes" />
 
         </RelativeLayout>
     </ScrollView>

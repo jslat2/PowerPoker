@@ -67,6 +67,14 @@ public class Calculator extends Fragment{
             ((EditText)getActivity().findViewById(R.id.oppEightHand)).setText("    " + MainActivity.opponentEight.playerCards.get(0).toUpperCase() + ", " + MainActivity.opponentEight.playerCards.get(1).toUpperCase());
         }
 
+        if(!MainActivity.boardEditor.boardCards.equals(null) && MainActivity.boardEditor.boardCards.size() > 0){
+            String s = MainActivity.boardEditor.boardCards.get(0).toUpperCase();
+            for(int i = 1; i < MainActivity.boardEditor.boardCards.size(); i++){
+                s+=" ," + MainActivity.boardEditor.boardCards.get(i).toUpperCase();
+            }
+            ((EditText)getActivity().findViewById(R.id.boardCards)).setText(s);
+        }
+
     }
 
     public void onDestroyView(){
@@ -115,6 +123,8 @@ public class Calculator extends Fragment{
                 Integer[] oppSix = null;
                 Integer[] oppSeven = null;
                 Integer[] oppEight = null;
+                Integer[] board = null;
+                BoardEditor b = new BoardEditor();
 
 
                 if (MainActivity.hero.playerCards.isEmpty()) {
@@ -132,6 +142,23 @@ public class Calculator extends Fragment{
                         && MainActivity.opponentSeven.playerCards.isEmpty() && MainActivity.opponentEight.playerCards.isEmpty()) {
                     Toast.makeText(getActivity(), "No opponent has cards", Toast.LENGTH_LONG).show();
                 } else {
+                    if(!MainActivity.boardEditor.boardCards.isEmpty()){
+                        board = new Integer[MainActivity.boardEditor.boardCards.size() * 2];
+                        board[0] = letterToRank(MainActivity.boardEditor.boardCards.get(0).charAt(MainActivity.boardEditor.boardCards.get(0).length() - 1));
+                        board[1] = letterToRank(MainActivity.boardEditor.boardCards.get(0).charAt(0));
+                        board[2] = letterToRank(MainActivity.boardEditor.boardCards.get(1).charAt(MainActivity.boardEditor.boardCards.get(1).length() - 1));
+                        board[3] = letterToRank(MainActivity.boardEditor.boardCards.get(1).charAt(0));
+                        board[4] = letterToRank(MainActivity.boardEditor.boardCards.get(2).charAt(MainActivity.boardEditor.boardCards.get(2).length() - 1));
+                        board[5] = letterToRank(MainActivity.boardEditor.boardCards.get(2).charAt(0));
+                        if(MainActivity.boardEditor.boardCards.size() > 3){
+                            board[6] = letterToRank(MainActivity.boardEditor.boardCards.get(3).charAt(MainActivity.boardEditor.boardCards.get(3).length() - 1));
+                            board[7] = letterToRank(MainActivity.boardEditor.boardCards.get(3).charAt(0));
+                        }
+                        if(MainActivity.boardEditor.boardCards.size() > 4){
+                            board[8] = letterToRank(MainActivity.boardEditor.boardCards.get(4).charAt(MainActivity.boardEditor.boardCards.get(4).length() - 1));
+                            board[9] = letterToRank(MainActivity.boardEditor.boardCards.get(4).charAt(0));
+                        }
+                    }
                     if (!MainActivity.opponentOne.playerCards.isEmpty()) {
                         oppOne = new Integer[4];
                         oppOne[0] = letterToRank(MainActivity.opponentOne.playerCards.get(0).charAt(MainActivity.opponentOne.playerCards.get(0).length() - 1));
@@ -190,7 +217,7 @@ public class Calculator extends Fragment{
                         oppEight[3] = letterToRank(MainActivity.opponentEight.playerCards.get(1).charAt(0));
                     }
                     a = new equityCalc();
-                    a.execute(hero, oppOne, oppTwo, oppThree, oppFour, oppFive, oppSix, oppSeven, oppEight, null);
+                    a.execute(hero, oppOne, oppTwo, oppThree, oppFour, oppFive, oppSix, oppSeven, oppEight, board);
                 }
             }
         });
@@ -976,7 +1003,6 @@ public class Calculator extends Fragment{
 
             //take cards out of space for potential cards to come
             int[] remainingCards = new int[100-cardsToTakeOut];
-
             int counter = 0;
 
             for(int i = 0; i < 103; i = i+2){
@@ -1045,7 +1071,7 @@ public class Calculator extends Fragment{
                     }
                 }
                 if(board != null){
-                    for(int j = 0; j < 3; j = j+2) {
+                    for(int j = 0; j < board.length; j = j+2) {
                         if (board[j] == space[i] && board[j + 1] == space[i + 1]) {
                             newCard = false;
                         }
@@ -1240,13 +1266,422 @@ public class Calculator extends Fragment{
                 }
             }
 
+            else if(board.length == 6) {
+
+                cardsTotal[4] =  board[0];
+                cardsTotal[5] =  board[1];
+                cardsTotal[6] =  board[2];
+                cardsTotal[7] =  board[3];
+                cardsTotal[8] =  board[4];
+                cardsTotal[9] =  board[5];
+
+                if(oppOne != null){
+                    oppOneTotal[4] = board[0];
+                    oppOneTotal[5] = board[1];
+                    oppOneTotal[6] = board[2];
+                    oppOneTotal[7] = board[3];
+                    oppOneTotal[8] = board[4];
+                    oppOneTotal[9] = board[5];
+                }
+
+                if(oppTwo != null){
+                    oppTwoTotal[4] = board[0];
+                    oppTwoTotal[5] = board[1];
+                    oppTwoTotal[6] = board[2];
+                    oppTwoTotal[7] = board[3];
+                    oppTwoTotal[8] = board[4];
+                    oppTwoTotal[9] = board[5];
+                }
+
+                if(oppThree != null){
+                    oppThreeTotal[4] = board[0];
+                    oppThreeTotal[5] = board[1];
+                    oppThreeTotal[6] = board[2];
+                    oppThreeTotal[7] = board[3];
+                    oppThreeTotal[8] = board[4];
+                    oppThreeTotal[9] = board[5];
+                }
+
+                if(oppFour != null){
+                    oppFourTotal[4] = board[0];
+                    oppFourTotal[5] = board[1];
+                    oppFourTotal[6] = board[2];
+                    oppFourTotal[7] = board[3];
+                    oppFourTotal[8] = board[4];
+                    oppFourTotal[9] = board[5];
+                }
+
+                if(oppFive != null){
+                    oppFiveTotal[4] = board[0];
+                    oppFiveTotal[5] = board[1];
+                    oppFiveTotal[6] = board[2];
+                    oppFiveTotal[7] = board[3];
+                    oppFiveTotal[8] = board[4];
+                    oppFiveTotal[9] = board[5];
+                }
+
+                if(oppSix != null){
+                    oppSixTotal[4] = board[0];
+                    oppSixTotal[5] = board[1];
+                    oppSixTotal[6] = board[2];
+                    oppSixTotal[7] = board[3];
+                    oppSixTotal[8] = board[4];
+                    oppSixTotal[9] = board[5];
+                }
+
+                if(oppSeven != null){
+                    oppSevenTotal[4] = board[0];
+                    oppSevenTotal[5] = board[1];
+                    oppSevenTotal[6] = board[2];
+                    oppSevenTotal[7] = board[3];
+                    oppSevenTotal[8] = board[4];
+                    oppSevenTotal[9] = board[5];
+                }
+
+                if(oppEight != null){
+                    oppEightTotal[4] = board[0];
+                    oppEightTotal[5] = board[1];
+                    oppEightTotal[6] = board[2];
+                    oppEightTotal[7] = board[3];
+                    oppEightTotal[8] = board[4];
+                    oppEightTotal[9] = board[5];
+                }
+
+                for (int i = 0; i < simLength; i++) {
+
+                    Random n = new Random();
+                    int a = n.nextInt((remainingCards.length) / 2);
+                    int b = n.nextInt((remainingCards.length) / 2);
+                    while (b == a) {
+                        b = n.nextInt((remainingCards.length) / 2);
+                    }
+
+                    cardsTotal[10] = remainingCards[a*2];
+                    cardsTotal[11] = remainingCards[a*2+1];
+                    cardsTotal[12] = remainingCards[b*2];
+                    cardsTotal[13] = remainingCards[b*2+1];
+
+                    if(oppOne != null) {
+                        oppOneTotal[10] = remainingCards[a * 2];
+                        oppOneTotal[11] = remainingCards[a * 2 + 1];
+                        oppOneTotal[12] = remainingCards[b * 2];
+                        oppOneTotal[13] = remainingCards[b * 2 + 1];
+                    }
+
+                    if (oppTwo != null) {
+                        oppTwoTotal[10] = remainingCards[a*2];
+                        oppTwoTotal[11] = remainingCards[a*2+1];
+                        oppTwoTotal[12] = remainingCards[b*2];
+                        oppTwoTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppThree != null) {
+                        oppThreeTotal[10] = remainingCards[a*2];
+                        oppThreeTotal[11] = remainingCards[a*2+1];
+                        oppThreeTotal[12] = remainingCards[b*2];
+                        oppThreeTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppFour != null) {
+                        oppFourTotal[10] = remainingCards[a*2];
+                        oppFourTotal[11] = remainingCards[a*2+1];
+                        oppFourTotal[12] = remainingCards[b*2];
+                        oppFourTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppFive != null) {
+                        oppFiveTotal[10] = remainingCards[a*2];
+                        oppFiveTotal[11] = remainingCards[a*2+1];
+                        oppFiveTotal[12] = remainingCards[b*2];
+                        oppFiveTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppSix != null) {
+                        oppSixTotal[10] = remainingCards[a*2];
+                        oppSixTotal[11] = remainingCards[a*2+1];
+                        oppSixTotal[12] = remainingCards[b*2];
+                        oppSixTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppSeven != null) {
+                        oppSevenTotal[10] = remainingCards[a*2];
+                        oppSevenTotal[11] = remainingCards[a*2+1];
+                        oppSevenTotal[12] = remainingCards[b*2];
+                        oppSevenTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppEight != null) {
+                        oppEightTotal[10] = remainingCards[a*2];
+                        oppEightTotal[11] = remainingCards[a*2+1];
+                        oppEightTotal[12] = remainingCards[b*2];
+                        oppEightTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if(!isCancelled()) {
+                        heroWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(0);
+                        oppOneWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(1);
+                        oppTwoWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(2);
+                        oppThreeWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(3);
+                        oppFourWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(4);
+                        oppFiveWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(5);
+                        oppSixWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(6);
+                        oppSevenWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(7);
+                        oppEightWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(8);
+
+                        count++;
+
+                        String[] updateArray = new String[9];
+                        updateArray[0] = Double.toString(heroWins / count);
+                        updateArray[1] = Double.toString(oppOneWins / count);
+                        updateArray[2] = Double.toString(oppTwoWins / count);
+                        updateArray[3] = Double.toString(oppThreeWins / count);
+                        updateArray[4] = Double.toString(oppFourWins / count);
+                        updateArray[5] = Double.toString(oppFiveWins / count);
+                        updateArray[6] = Double.toString(oppSixWins / count);
+                        updateArray[7] = Double.toString(oppSevenWins / count);
+                        updateArray[8] = Double.toString(oppEightWins / count);
+
+                        if(count %100 == 0) {
+                            publishProgress(updateArray);
+                        }
+                    }
+                }
+            }
+
+            else if(board.length == 8) {
+
+                cardsTotal[4] =  board[0];
+                cardsTotal[5] =  board[1];
+                cardsTotal[6] =  board[2];
+                cardsTotal[7] =  board[3];
+                cardsTotal[8] =  board[4];
+                cardsTotal[9] =  board[5];
+                cardsTotal[10] = board[6];
+                cardsTotal[11] = board[7];
+
+                if(oppOne != null){
+                    oppOneTotal[4] = board[0];
+                    oppOneTotal[5] = board[1];
+                    oppOneTotal[6] = board[2];
+                    oppOneTotal[7] = board[3];
+                    oppOneTotal[8] = board[4];
+                    oppOneTotal[9] = board[5];
+                    oppOneTotal[10] = board[6];
+                    oppOneTotal[11] = board[7];
+                }
+
+                if(oppTwo != null){
+                    oppTwoTotal[4] = board[0];
+                    oppTwoTotal[5] = board[1];
+                    oppTwoTotal[6] = board[2];
+                    oppTwoTotal[7] = board[3];
+                    oppTwoTotal[8] = board[4];
+                    oppTwoTotal[9] = board[5];
+                    oppTwoTotal[10] = board[6];
+                    oppTwoTotal[11] = board[7];
+                }
+
+                if(oppThree != null){
+                    oppThreeTotal[4] = board[0];
+                    oppThreeTotal[5] = board[1];
+                    oppThreeTotal[6] = board[2];
+                    oppThreeTotal[7] = board[3];
+                    oppThreeTotal[8] = board[4];
+                    oppThreeTotal[9] = board[5];
+                    oppThreeTotal[10] = board[6];
+                    oppThreeTotal[11] = board[7];
+                }
+
+                if(oppFour != null){
+                    oppFourTotal[4] = board[0];
+                    oppFourTotal[5] = board[1];
+                    oppFourTotal[6] = board[2];
+                    oppFourTotal[7] = board[3];
+                    oppFourTotal[8] = board[4];
+                    oppFourTotal[9] = board[5];
+                    oppFourTotal[10] = board[6];
+                    oppFourTotal[11] = board[7];
+                }
+
+                if(oppFive != null){
+                    oppFiveTotal[4] = board[0];
+                    oppFiveTotal[5] = board[1];
+                    oppFiveTotal[6] = board[2];
+                    oppFiveTotal[7] = board[3];
+                    oppFiveTotal[8] = board[4];
+                    oppFiveTotal[9] = board[5];
+                    oppFiveTotal[10] = board[6];
+                    oppFiveTotal[11] = board[7];
+                }
+
+                if(oppSix != null){
+                    oppSixTotal[4] = board[0];
+                    oppSixTotal[5] = board[1];
+                    oppSixTotal[6] = board[2];
+                    oppSixTotal[7] = board[3];
+                    oppSixTotal[8] = board[4];
+                    oppSixTotal[9] = board[5];
+                    oppSixTotal[10] = board[6];
+                    oppSixTotal[11] = board[7];
+                }
+
+                if(oppSeven != null) {
+                    oppSevenTotal[4] = board[0];
+                    oppSevenTotal[5] = board[1];
+                    oppSevenTotal[6] = board[2];
+                    oppSevenTotal[7] = board[3];
+                    oppSevenTotal[8] = board[4];
+                    oppSevenTotal[9] = board[5];
+                    oppSevenTotal[10] = board[6];
+                    oppSevenTotal[11] = board[7];
+                }
+
+                if(oppEight != null){
+                    oppEightTotal[4] = board[0];
+                    oppEightTotal[5] = board[1];
+                    oppEightTotal[6] = board[2];
+                    oppEightTotal[7] = board[3];
+                    oppEightTotal[8] = board[4];
+                    oppEightTotal[9] = board[5];
+                    oppEightTotal[10] = board[6];
+                    oppEightTotal[11] = board[7];
+                }
+
+                for (int i = 0; i < simLength; i++) {
+
+                    Random n = new Random();
+                    int b = n.nextInt((remainingCards.length) / 2);
+
+
+                    cardsTotal[12] = remainingCards[b*2];
+                    cardsTotal[13] = remainingCards[b*2+1];
+
+                    if(oppOne != null) {
+                        oppOneTotal[12] = remainingCards[b * 2];
+                        oppOneTotal[13] = remainingCards[b * 2 + 1];
+                    }
+
+                    if (oppTwo != null) {
+                        oppTwoTotal[12] = remainingCards[b*2];
+                        oppTwoTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppThree != null) {
+                        oppThreeTotal[12] = remainingCards[b*2];
+                        oppThreeTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppFour != null) {
+                        oppFourTotal[12] = remainingCards[b*2];
+                        oppFourTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppFive != null) {
+                        oppFiveTotal[12] = remainingCards[b*2];
+                        oppFiveTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppSix != null) {
+                        oppSixTotal[12] = remainingCards[b*2];
+                        oppSixTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if (oppSeven != null) {
+                        oppSevenTotal[12] = remainingCards[b*2];
+                        oppSevenTotal[13] = remainingCards[b*2+1];
+                    }
+                    if (oppEight != null) {
+                        oppEightTotal[12] = remainingCards[b*2];
+                        oppEightTotal[13] = remainingCards[b*2+1];
+                    }
+
+                    if(!isCancelled()) {
+                        heroWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(0);
+                        oppOneWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(1);
+                        oppTwoWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(2);
+                        oppThreeWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(3);
+                        oppFourWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(4);
+                        oppFiveWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(5);
+                        oppSixWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(6);
+                        oppSevenWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(7);
+                        oppEightWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                                handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(8);
+
+                        count++;
+
+                        String[] updateArray = new String[9];
+                        updateArray[0] = Double.toString(heroWins / count);
+                        updateArray[1] = Double.toString(oppOneWins / count);
+                        updateArray[2] = Double.toString(oppTwoWins / count);
+                        updateArray[3] = Double.toString(oppThreeWins / count);
+                        updateArray[4] = Double.toString(oppFourWins / count);
+                        updateArray[5] = Double.toString(oppFiveWins / count);
+                        updateArray[6] = Double.toString(oppSixWins / count);
+                        updateArray[7] = Double.toString(oppSevenWins / count);
+                        updateArray[8] = Double.toString(oppEightWins / count);
+
+                        if(count %100 == 0) {
+                            publishProgress(updateArray);
+                        }
+                    }
+                }
+            }
+
+            else{
+                heroWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(0);
+                oppOneWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(1);
+                oppTwoWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(2);
+                oppThreeWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(3);
+                oppFourWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(4);
+                oppFiveWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(5);
+                oppSixWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(6);
+                oppSevenWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(7);
+                oppEightWins += determineWinner(handRank(cardsTotal), handRank(oppOneTotal), handRank(oppTwoTotal), handRank(oppThreeTotal), handRank(oppFourTotal), handRank(oppFiveTotal),
+                        handRank(oppSixTotal), handRank(oppSevenTotal), handRank(oppEightTotal)).get(8);
+
+                count++;
+
+                String[] updateArray = new String[9];
+                updateArray[0] = Double.toString(heroWins / count);
+                updateArray[1] = Double.toString(oppOneWins / count);
+                updateArray[2] = Double.toString(oppTwoWins / count);
+                updateArray[3] = Double.toString(oppThreeWins / count);
+                updateArray[4] = Double.toString(oppFourWins / count);
+                updateArray[5] = Double.toString(oppFiveWins / count);
+                updateArray[6] = Double.toString(oppSixWins / count);
+                updateArray[7] = Double.toString(oppSevenWins / count);
+                updateArray[8] = Double.toString(oppEightWins / count);
+
+                publishProgress(updateArray);
+            }
+
             return result;
         }
 
 
         @Override
         protected Double doInBackground(Integer[]... params) {
-            monteCarlo(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], null, 50000);
+            monteCarlo(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9], 50000);
             return result;
         }
 

@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity{
     public static HandEditor opponentSix;
     public static HandEditor opponentSeven;
     public static HandEditor opponentEight;
+    public static BoardEditor boardEditor;
     public static int currentSessionPosition = -1;
     public static boolean sessionActive = false;
     public static long checkpoint = 0;
@@ -62,6 +63,7 @@ public class MainActivity extends ActionBarActivity{
 
         setContentView(R.layout.activity_main);
 
+
         Login l = new Login();
         switchFrag(l);
 
@@ -74,6 +76,7 @@ public class MainActivity extends ActionBarActivity{
         opponentSix = new HandEditor();
         opponentSeven = new HandEditor();
         opponentEight = new HandEditor();
+        boardEditor = new BoardEditor();
 
     }
 
@@ -147,6 +150,9 @@ public class MainActivity extends ActionBarActivity{
     public void openOppEightCards(View v){
         switchFrag(opponentEight);
     }
+    public void openBoardCards(View v){
+        switchFrag(boardEditor);
+    }
 
     public void openPlayerNotes(View v){
         PlayerNotes p = new PlayerNotes();
@@ -190,6 +196,7 @@ public class MainActivity extends ActionBarActivity{
         opponentSix = new HandEditor();
         opponentSeven = new HandEditor();
         opponentEight = new HandEditor();
+        boardEditor = new BoardEditor();
 
         Calculator c = new Calculator();
         switchFrag(c);
@@ -201,20 +208,29 @@ public class MainActivity extends ActionBarActivity{
     }
 
     public void saveBankroll(View v){
-        String date = "";
-        String bankrollName = ((EditText) findViewById(R.id.bankrollName)).getText().toString();
-        Double initialDeposit = Double.parseDouble(((EditText) findViewById(R.id.initialDeposit)).getText().toString());
 
-        if(bankrollName == null || bankrollName.equals("")){
+
+
+        String bankrollName = ((EditText) findViewById(R.id.bankrollName)).getText().toString();
+        String initialDepositString = ((EditText) findViewById(R.id.initialDeposit)).getText().toString();
+
+        if(bankrollName.equals("")){
             Toast.makeText(this, "Please Enter a Bankroll Name", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(initialDeposit == null || initialDeposit <= 0){
-            Toast.makeText(this, "Please Enter a Deposit Amount", Toast.LENGTH_LONG).show();
+        if(initialDepositString.equals("")){
+            Toast.makeText(this, "Please Enter a Deposit Amount (Must be Greater Than $0)", Toast.LENGTH_LONG).show();
             return;
         }
 
+        Double initialDeposit = Double.parseDouble(((EditText) findViewById(R.id.initialDeposit)).getText().toString());
+        if(initialDeposit <= 0){
+            Toast.makeText(this, "Please Enter a Deposit Amount (Must be Greater Than $0)", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String date = "";
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat simple = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
         date = simple.format(cal.getTime());
