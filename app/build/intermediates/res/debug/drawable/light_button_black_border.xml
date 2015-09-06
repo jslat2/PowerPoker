@@ -3,4 +3,4 @@
     android:shape="rectangle">
     <solid android:color="#ffffff"/>
     <stroke android:width="1px" android:color="#000000"/>
-</shape><!-- From: file:/C:/Users/Gaming/AndroidStudioProjects/PowerPoker/app/src/main/res/drawable/light_button_black_border.xml -->
+</shape><!-- From: file:/home/rockit/Desktop/projects/powerpoker/app/src/main/res/drawable/light_button_black_border.xml -->
