@@ -1535,12 +1535,13 @@ containing a value of this type.
         public static final int medium_button=0x7f020043;
         public static final int menu=0x7f020044;
         public static final int menu_button=0x7f020045;
-        public static final int notification_template_icon_bg=0x7f02004b;
+        public static final int notification_template_icon_bg=0x7f02004c;
         public static final int orange_button=0x7f020046;
-        public static final int red_banner=0x7f020047;
-        public static final int red_button=0x7f020048;
-        public static final int red_button_flat=0x7f020049;
-        public static final int white_button=0x7f02004a;
+        public static final int qlt=0x7f020047;
+        public static final int red_banner=0x7f020048;
+        public static final int red_button=0x7f020049;
+        public static final int red_button_flat=0x7f02004a;
+        public static final int white_button=0x7f02004b;
     }
     public static final class id {
         public static final int AC=0x7f0c00b8;
@@ -1892,8 +1893,9 @@ containing a value of this type.
         public static final int session_log=0x7f040035;
         public static final int session_log_list=0x7f040036;
         public static final int sessions_list=0x7f040037;
-        public static final int support_simple_spinner_dropdown_item=0x7f040038;
-        public static final int withdrawal_popup=0x7f040039;
+        public static final int splash=0x7f040038;
+        public static final int support_simple_spinner_dropdown_item=0x7f040039;
+        public static final int withdrawal_popup=0x7f04003a;
     }
     public static final class menu {
         public static final int menu_main=0x7f0d0000;
