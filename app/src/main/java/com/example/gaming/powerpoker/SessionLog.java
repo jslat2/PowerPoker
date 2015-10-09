@@ -112,32 +112,34 @@ public class SessionLog extends Fragment {
             }
         });
 
-        if(MainActivity.currentSessionBankroll != -1) {
-            bankrollSpinner.setSelection(MainActivity.currentSessionBankroll);
+        if(MainActivity.currentSessionPosition != -1) {
+            if (MainActivity.currentSessionBankroll != -1) {
+                bankrollSpinner.setSelection(MainActivity.currentSessionBankroll);
+            }
+            if (MainActivity.currentSessionFormat != -1) {
+                formatSpinner.setSelection(MainActivity.currentSessionFormat);
+            }
+            if (MainActivity.currentSessionStakes != -1) {
+                stakesSpinner.setSelection(MainActivity.currentSessionStakes);
+            }
+            if (MainActivity.currentBuyIn != -1) {
+                ((EditText) (getActivity().findViewById(R.id.buyIn))).setText(Double.toString(MainActivity.currentBuyIn));
+            }
+            if (MainActivity.currentNotes != null) {
+                ((EditText) getActivity().findViewById(R.id.notes)).setText(MainActivity.currentNotes);
+            }
+            if (MainActivity.currentCashOut != -1) {
+                ((EditText) getActivity().findViewById(R.id.cashOut)).setText(Double.toString(MainActivity.currentCashOut));
+            }
+            if (MainActivity.currentVenue != null) {
+                ((EditText) getActivity().findViewById(R.id.venue)).setText(MainActivity.currentVenue);
+            }
         }
-        if(MainActivity.currentSessionFormat != -1) {
-            formatSpinner.setSelection(MainActivity.currentSessionFormat);
-        }
-        if(MainActivity.currentSessionStakes != -1) {
-            stakesSpinner.setSelection(MainActivity.currentSessionStakes);
-        }
-        if(MainActivity.currentBuyIn != -1) {
-            ((EditText) (getActivity().findViewById(R.id.buyIn))).setText(Double.toString(MainActivity.currentBuyIn));
-        }
-        if(MainActivity.currentNotes != null) {
-            ((EditText) getActivity().findViewById(R.id.notes)).setText(MainActivity.currentNotes);
-        }
-        if(MainActivity.currentCashOut != -1) {
-            ((EditText) getActivity().findViewById(R.id.cashOut)).setText(Double.toString(MainActivity.currentCashOut));
-        }
-        if(MainActivity.currentVenue != null) {
-            ((EditText) getActivity().findViewById(R.id.venue)).setText(MainActivity.currentVenue);
-        }
+            ArrayList<String> venues = getVenues(MainActivity.db);
+            AutoCompleteTextView autoComplete = (AutoCompleteTextView) getActivity().findViewById(R.id.venue);
+            ArrayAdapter<String> autoAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, venues);
+            autoComplete.setAdapter(autoAdapter);
 
-        ArrayList<String> venues = getVenues(MainActivity.db);
-        AutoCompleteTextView autoComplete = (AutoCompleteTextView) getActivity().findViewById(R.id.venue);
-        ArrayAdapter<String> autoAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, venues);
-        autoComplete.setAdapter(autoAdapter);
 
     }
 

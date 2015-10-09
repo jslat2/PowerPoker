@@ -4,4 +4,4 @@ android:shape="rectangle">
 <solid android:color="#ffffff"/>
 <corners android:radius="5dp" />
 <stroke android:width="2px" android:color="#4fc3f7"/>
-</shape><!-- From: file:/home/rockit/Desktop/projects/powerpoker/app/src/main/res/drawable/light_border.xml -->
+</shape><!-- From: file:/home/rockit/Desktop/Projects/powerpoker/app/src/main/res/drawable/light_border.xml -->

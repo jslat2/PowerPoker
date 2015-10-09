@@ -863,14 +863,14 @@ public class Calculator extends Fragment{
             for(int i = 0; i < lastRemainingIndex; i++) {
                 //loop through once to determine highest rank in the column
                 for (int j = 0; j < remainingPlayers.size(); j++) {
-                    if(remainingPlayers.get(j).get(0) != -1 && (int)remainingPlayers.get(j).get(i) > highestColumnRank){
+                    if((int)remainingPlayers.get(j).get(0) != -1 && (int)remainingPlayers.get(j).get(i) > highestColumnRank){
                         highestColumnRank = (int)remainingPlayers.get(j).get(i);
                         lastRemainingIndex = remainingPlayers.get(j).size();
                     }
                 }
                 //second loop to eliminate all hands not of the highest rank
                 for(int j = 0; j < remainingPlayers.size(); j++){
-                    if(remainingPlayers.get(j).get(0) != -1 && (int)remainingPlayers.get(j).get(i) < highestColumnRank){
+                    if((int)remainingPlayers.get(j).get(0) != -1 && (int)remainingPlayers.get(j).get(i) < highestColumnRank){
                         remainingPlayers.remove(j);
                         remainingPlayers.add(j, blankArray);
                     }
@@ -879,7 +879,7 @@ public class Calculator extends Fragment{
             }
 
             for(int i = 0; i < remainingPlayers.size(); i++){
-                if(remainingPlayers.get(i).get(0) != -1){
+                if((int)remainingPlayers.get(i).get(0) != -1){
                     return remainingPlayers.get(i);
                 }
             }
