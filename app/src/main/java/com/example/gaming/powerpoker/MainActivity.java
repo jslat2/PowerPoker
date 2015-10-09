@@ -518,19 +518,15 @@ public class MainActivity extends ActionBarActivity{
         long totalTime = 0;
         for(int i = timeString.length()-1; i >= 0; i--){
             if(i == timeString.length()-1){
-                System.out.println(Long.parseLong(timeString.substring(timeString.length() - 1, timeString.length()))+ "!!!!!!!!!!!!!!!!!!!!!");
                 totalTime += (Long.parseLong(timeString.substring(timeString.length() - 1, timeString.length())))*1000;
             }
             if(i == timeString.length() -2){
-                System.out.println(Long.parseLong(timeString.substring(timeString.length() - 2, timeString.length() -1))+ "!aaaaa!!!!!!!");
                 totalTime += (Long.parseLong(timeString.substring(timeString.length() -  2, timeString.length() - 1)))*10000;
             }
             if(i == timeString.length() -4){
-                System.out.println((long)(timeString.charAt(timeString.length()-4))+ "!!bbbbbbb!!!!!!!!!!!!");
                 totalTime += (Long.parseLong(timeString.substring(timeString.length() - 4, timeString.length()-3)))*60000;
             }
             if(i == timeString.length() -5){
-                System.out.println((long)(timeString.charAt(timeString.length()-5))+ "!!ccccccccccc!!!!!!!!!!!!");
                 totalTime += (Long.parseLong(timeString.substring(timeString.length() - 5, timeString.length() - 4)))*600000;
             }
             if(i == timeString.length() -7){
